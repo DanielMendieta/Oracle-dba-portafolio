@@ -1,13 +1,89 @@
-Primer Caso - DANIEL es un desarrollador que necesita trabajar en algunas de las tablas del esquema HR.Human Resources, pero en otras tablas solo tiene permiso para hacer SELECT
+1 - DANIEL es un desarrollador que necesita trabajar en nuestro esquema, le crearemos un usuario y luego le asignaremos un Rol.
 
 CREATE USER daniel IDENTIFIED BY oracle123;
 
 GRANT CONNECT TO daniel;
 GRANT RESOURCE TO daniel;
 
--- Acceso específico al esquema HR
-GRANT SELECT, INSERT, UPDATE ON hr.employees TO daniel;
-GRANT SELECT ON hr.departments TO daniel;
+-- Crear un rol
+CREATE ROLE rol_desarrollador;
 
+-- Darle privilegios al rol
+GRANT SELECT, INSERT, UPDATE ON hr.employees TO rol_desarrollador;
+
+-- Asignar el rol al usuario
+GRANT rol_desarrollador TO daniel;
+---------------------------------------------------------------------------------------------------------------
+2 - Este rol le da a Lucía acceso amplio sobre las tablas más usadas del esquema HR. 
+
+-- Crear el rol
+CREATE ROLE rol_analista_hr;
+
+-- Otorgar privilegios sobre varias tablas del esquema HR
+GRANT SELECT, INSERT, UPDATE, DELETE ON hr.employees TO rol_analista_hr;
+GRANT SELECT, UPDATE ON hr.departments TO rol_analista_hr;
+GRANT SELECT ON hr.jobs TO rol_analista_hr;
+GRANT SELECT ON hr.locations TO rol_analista_hr;
+
+-- Crear un nuevo usuario
+CREATE USER lucia IDENTIFIED BY oracle123;
+
+-- Asignar el rol al usuario
+GRANT rol_analista_hr TO lucia;
+GRANT CONNECT TO lucia;
+---------------------------------------------------------------------------------------------------------------
+3 - Rol orientado a solo lectura (modo auditoría o control), ideal para perfiles que solo necesitan consultar datos sin modificarlos:
+
+-- Crear un rol de solo lectura
+CREATE ROLE rol_lector_hr;
+
+-- Otorgar privilegios de solo lectura sobre todo el esquema HR
+GRANT SELECT ON hr.employees TO rol_lector_hr;
+GRANT SELECT ON hr.departments TO rol_lector_hr;
+GRANT SELECT ON hr.jobs TO rol_lector_hr;
+GRANT SELECT ON hr.locations TO rol_lector_hr;
+GRANT SELECT ON hr.countries TO rol_lector_hr;
+GRANT SELECT ON hr.regions TO rol_lector_hr;
+
+-- Crear usuario con acceso solo lectura
+CREATE USER auditor IDENTIFIED BY lector123;
+
+-- Asignar rol de solo lectura
+GRANT rol_lector_hr TO auditor;
+GRANT CONNECT TO auditor;
 
 ---------------------------------------------------------------------------------------------------------------
+4 - Evocación o con creación de roles con ADMIN OPTION.
+
+-- Crear un rol con permisos de mantenimiento sobre empleados
+CREATE ROLE rol_mantenimiento_hr;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON hr.employees TO rol_mantenimiento_hr;
+
+-- Crear un usuario supervisor
+CREATE USER supervisor IDENTIFIED BY admin123;
+
+-- Asignar el rol con opción de administración
+GRANT rol_mantenimiento_hr TO supervisor WITH ADMIN OPTION;
+
+-- Asignar conectividad
+GRANT CONNECT TO supervisor;
+
+-- El supervisor ahora puede otorgar ese rol a otros usuarios
+-- Ejemplo: supervisor otorga el rol a un ayudante
+CREATE USER ayudante IDENTIFIED BY ayuda123;
+GRANT rol_mantenimiento_hr TO ayudante;
+
+-- Luego, si se desea quitar el rol al ayudante
+REVOKE rol_mantenimiento_hr FROM ayudante;
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
