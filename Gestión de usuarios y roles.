@@ -78,6 +78,14 @@ GRANT rol_mantenimiento_hr TO ayudante;
 REVOKE rol_mantenimiento_hr FROM ayudante;
 
 ---------------------------------------------------------------------------------------------------------------
+5 - Asignar Rol y Pefil a un usuario llamado Lucas.
+
+-- Crear el usuario con perfil asignado
+CREATE USER lucas IDENTIFIED BY clave123 PROFILE perfil_desarrollador;
+
+-- Asignar rol y privilegios de conexión
+GRANT rol_analista_hr TO lucas;
+GRANT CONNECT TO lucas;
 
 
 
