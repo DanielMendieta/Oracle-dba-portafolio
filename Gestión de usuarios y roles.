@@ -87,6 +87,23 @@ CREATE USER lucas IDENTIFIED BY clave123 PROFILE perfil_desarrollador;
 GRANT rol_analista_hr TO lucas;
 GRANT CONNECT TO lucas;
 
+---------------------------------------------------------------------------------------------------------------
+
+6 - Quitar privilegios que fueron otorgados directamente al usuario.
+
+REVOKE SELECT, INSERT ON hr.employees FROM lucas;
+
+---------------------------------------------------------------------------------------------------------------
+7 - Quitar roles asignados
+
+REVOKE rol_analista_hr FROM lucas;
+
+---------------------------------------------------------------------------------------------------------------
+8 - Importante: Si el privilegio fue otorgado a través de un rol, primero tenés que quitar el rol completo, no se puede revocar privilegios individuales que vengan del rol.
+
+REVOKE CONNECT FROM lucas;
+
+
 
 
 
