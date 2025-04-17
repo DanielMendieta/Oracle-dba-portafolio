@@ -1,1 +1,13 @@
+Primer Caso - DANIEL es un desarrollador que necesita trabajar en algunas de las tablas del esquema HR.Human Resources, pero en otras tablas solo tiene permiso para hacer SELECT
 
+CREATE USER daniel IDENTIFIED BY oracle123;
+
+GRANT CONNECT TO daniel;
+GRANT RESOURCE TO daniel;
+
+-- Acceso específico al esquema HR
+GRANT SELECT, INSERT, UPDATE ON hr.employees TO daniel;
+GRANT SELECT ON hr.departments TO daniel;
+
+
+---------------------------------------------------------------------------------------------------------------
