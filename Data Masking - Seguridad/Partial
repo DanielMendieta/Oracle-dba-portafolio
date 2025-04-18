@@ -22,3 +22,57 @@ SELECT nombre, tarjeta_credito FROM hr.clientes;
 Resultado:
 JUAN    ************1234
 MARIA   ************5678
+
+Otra manera
+
+
+BEGIN
+  DBMS_REDACT.ADD_POLICY (
+    object_schema   => 'HUMAN_RESOURCE',
+    object_name     => 'TARJETAS',
+    column_name     => 'NUMERO_TARJETA',
+    policy_name     => 'enmascarar_tarjeta',
+    function_type   => DBMS_REDACT.PARTIAL,
+    expression      => '1=1',
+    partial_expression => NULL,
+    -- Mostrar solo los últimos 4 caracteres, ocultar los primeros 12 con '*'
+    function_parameters => 'VVVVVVVVVVVV****,VVVVVVVVVVVVVVVV'
+  );
+END;
+/
+
+-------------------------------------------------------------------------------------------------------------------------
+
+2-  Enmascaramiento parcial solo últimos 3 dígitos del DNI:
+
+BEGIN
+  DBMS_REDACT.ADD_POLICY (
+    object_schema   => 'HUMAN_RESOURCE',
+    object_name     => 'PERSONAS',
+    column_name     => 'DNI',
+    policy_name     => 'enmascarar_dni',
+    function_type   => DBMS_REDACT.PARTIAL,
+    expression      => '1=1',
+    function_parameters => 'XXXXXVVV,XXXXXXXX'
+  );
+END;
+/
+
+Consulta:
+SELECT nombre, dni FROM HUMAN_RESOURCE.PERSONAS;
+
+Resultado:
+CARLOS   XXXXX123
+LAURA    XXXXX987
+
+
+
+
+
+
+
+
+
+
+
+
