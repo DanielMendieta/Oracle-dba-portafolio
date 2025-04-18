@@ -45,3 +45,4 @@ CREATE PROFILE perfil_restringido LIMIT
   CONNECT_TIME 60                 -- Tiempo máximo de conexión (60 minutos)
   IDLE_TIME 10                    -- Tiempo de inactividad máximo (10 minutos)
   PASSWORD_LIFE_TIME 7;           -- Contraseña expira cada 7 días
+
