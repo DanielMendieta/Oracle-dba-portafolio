@@ -19,4 +19,52 @@ Resultado:
 JUAN     0
 MARIA    0
 
+Por defecto los valores numéricos se enmascaran con 0, y los textos con 'XXXXXXXX'.
+
+----------------------------------------------------------------------------------------------------------------------------
+
+2 - Ocultar columna direccion de la tabla direccion.
+
+BEGIN
+  DBMS_REDACT.ADD_POLICY (
+    object_schema   => 'HUMAN_RESOURCE',
+    object_name     => 'CLIENTES',
+    column_name     => 'DIRECCION',
+    policy_name     => 'ocultar_direccion',
+    function_type   => DBMS_REDACT.FULL,
+    expression      => '1=1'  -- Aplica a todos los usuarios
+  );
+END;
+/
+
+Consulta:
+SELECT nombre, direccion FROM HUMAN_RESOURCE.CLIENTES;
+
+Resultado:
+JUAN     XXXXXXXXXX
+ANA      XXXXXXXXXX
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
