@@ -1,0 +1,22 @@
+1 - Ocultar Completamente columna Salarios.
+
+BEGIN
+  DBMS_REDACT.ADD_POLICY (
+    object_schema   => 'HR',
+    object_name     => 'SUELDOS',
+    column_name     => 'SALARIO',
+    policy_name     => 'ocultar_salario',
+    function_type   => DBMS_REDACT.FULL,
+    expression      => '1=1'  -- Se aplica siempre, salvo que el usuario tenga privilegio especial
+  );
+END;
+/
+
+Consulta:
+SELECT nombre, salario FROM hr.sueldos;
+
+Resultado:
+JUAN     0
+MARIA    0
+
+
