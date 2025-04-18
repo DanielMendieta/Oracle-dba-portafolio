@@ -1,0 +1,44 @@
+1 - Enmascarar el salario con valores aleatorios.
+Ejemplo: SALARY = 5000 → visible como 2438, 8742.
+
+BEGIN
+  DBMS_REDACT.ADD_POLICY (
+    object_schema   => 'HUMAN_RESOURCE',
+    object_name     => 'SUELDOS',
+    column_name     => 'SALARIO',
+    policy_name     => 'enmascarar_salario',
+    function_type   => DBMS_REDACT.RANDOM,
+    expression      => '1=1'
+  );
+END;
+/
+
+---------------------------------------------------------------------------------------
+
+2 - Ocultar diagnósticos médicos aleatorizando el texto.
+Ejemplo: de "Hipertensión" → "Yqmxwvoaz"
+
+BEGIN
+  DBMS_REDACT.ADD_POLICY (
+    object_schema   => 'HUMAN_RESOURCE',
+    object_name     => 'PACIENTES',
+    column_name     => 'DIAGNOSTICO',
+    policy_name     => 'enmascarar_diagnostico',
+    function_type   => DBMS_REDACT.RANDOM,
+    expression      => '1=1'
+  );
+END;
+/
+
+Resultado:
+Usuario sin privilegios:
+
+JUANA   Vhlwrpqzn
+CARLOS  Ahtmskdoi
+
+Usuario con privilegios:
+
+JUANA   Hipertensión
+CARLOS  Diabetes tipo 2
+
+
