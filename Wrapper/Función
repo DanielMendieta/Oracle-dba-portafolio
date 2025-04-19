@@ -1,0 +1,35 @@
+Paso 1: Crear la función sin encriptar
+
+CREATE OR REPLACE FUNCTION calcular_bono (
+  p_employee_id NUMBER
+) RETURN NUMBER IS
+  v_salario NUMBER;
+BEGIN
+  SELECT salary
+  INTO v_salario
+  FROM human_resource.employees
+  WHERE employee_id = p_employee_id;
+
+  RETURN v_salario * 0.10;
+END;
+/
+
+Paso 2: Guardar ese código en un archivo .sql (por ejemplo: calcular_bono.sql)
+
+Paso 3: Desde la terminal ejecutar
+wrap iname=calcular_bono.sql oname=calcular_bono_wrapped.sql
+
+--iname es el archivo de entrada (con código fuente).
+--oname es el archivo de salida (ofuscado).
+
+El archivo calcular_bono_wrapped.sql tendrá algo como:
+CREATE OR REPLACE FUNCTION calcular_bono wrapped 
+01020002000003000000000000023a03000000000000000000000000000000
+... -- contenido ilegible
+/
+
+Este archivo ahora puede ejecutarse normalmente con @calcular_bono_wrapped.sql en SQL*Plus o SQL Developer, y el código quedará protegido.
+
+
+
+
