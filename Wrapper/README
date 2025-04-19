@@ -1,0 +1,2 @@
+El comando WRAP permite ofuscar el código fuente de objetos PL/SQL (procedimientos, funciones, paquetes) para evitar su lectura.
+Ideal para proteger la lógica interna y evitar ingeniería inversa.
