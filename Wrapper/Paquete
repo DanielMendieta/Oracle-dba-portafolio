@@ -1,0 +1,59 @@
+Este paquete contiene:
+Una función para calcular el bono.
+Un procedimiento para actualizar el salario.
+Ambos operan sobre la tabla HUMAN_RESOURCE.EMPLOYEES.
+
+--HEAD
+CREATE OR REPLACE PACKAGE gestion_empleados AS
+  FUNCTION calcular_bono (p_employee_id NUMBER) RETURN NUMBER;
+  PROCEDURE actualizar_salario (p_employee_id NUMBER, p_nuevo_salario NUMBER);
+END gestion_empleados;
+/
+
+--BODY
+CREATE OR REPLACE PACKAGE BODY gestion_empleados AS
+
+  FUNCTION calcular_bono (p_employee_id NUMBER) RETURN NUMBER IS
+    v_salario NUMBER;
+  BEGIN
+    SELECT salary INTO v_salario
+    FROM human_resource.employees
+    WHERE employee_id = p_employee_id;
+
+    RETURN v_salario * 0.10;
+  END;
+
+  PROCEDURE actualizar_salario (p_employee_id NUMBER, p_nuevo_salario NUMBER) IS
+  BEGIN
+    UPDATE human_resource.employees
+    SET salary = p_nuevo_salario
+    WHERE employee_id = p_employee_id;
+
+    COMMIT;
+  END;
+
+END gestion_empleados;
+/
+
+-- wrappear el cuerpo del paquete (gestion_empleados_body.sql):
+
+wrap iname=gestion_empleados_body.sql oname=gestion_empleados_body_wrapped.sql
+
+Resultado:
+
+CREATE OR REPLACE PACKAGE BODY gestion_empleados wrapped
+01020002000031000000000000023a03000000000000000000000000000000
+2b3c2d3a000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000
+... -- varias líneas con caracteres ofuscados
+/
+
+
+
+
+
+
+
+
+
+
