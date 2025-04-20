@@ -1,0 +1,10 @@
+Esta carpeta contiene ejemplos prácticos de cómo realizar copias de seguridad y recuperaciones en una base de datos Oracle usando RMAN (Recovery Manager).
+
+Incluye:
+
+- Cómo hacer un backup completo.
+- Cómo recuperar datos después de una falla.
+- Cómo verificar si los backups están bien hechos.
+- Buenas prácticas para cuidar la información.
+
+Los ejemplos están basados en un entorno de práctica con el esquema HR (Human Resource).
