@@ -1,0 +1,8 @@
+-- Iniciar RMAN
+rman target /
+
+-- Paso 1: Restaurar un tablespace específico desde un backup completo
+RESTORE TABLESPACE users;
+
+-- Paso 2: Recuperar el tablespace con los archivelogs
+RECOVER TABLESPACE users;
