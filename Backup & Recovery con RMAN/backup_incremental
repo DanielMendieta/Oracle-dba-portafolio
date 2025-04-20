@@ -9,7 +9,7 @@ BACKUP INCREMENTAL LEVEL 0 DATABASE;
 -- Días después, backup con cambios (nivel 1)
 BACKUP INCREMENTAL LEVEL 1 DATABASE;
 
---------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 2-Ejemplo avanzado con INCREMENTAL LEVEL 1
 
 -- 1. Crear una copia de imagen de los datafiles (nivel 0)
