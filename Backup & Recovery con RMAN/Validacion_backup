@@ -1,0 +1,15 @@
+-- Conexión a RMAN como usuario SYS o con privilegios adecuados
+rman target /
+
+-- Paso 1: Validar toda la base de datos
+-- Verifica que todos los datafiles y archivelogs estén correctos
+VALIDATE DATABASE;
+
+-- Paso 2: Validar un backup específico por su ID
+-- Verifica que el backupset con ID 12 esté legible y sin corrupción
+VALIDATE BACKUPSET 12;
+
+-- Paso 3: Validar copia de imagen de la base de datos
+-- Verifica que las copias de imagen de los datafiles sean válidas
+VALIDATE COPY OF DATABASE;
+
