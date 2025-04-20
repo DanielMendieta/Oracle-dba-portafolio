@@ -1,0 +1,39 @@
+1-Ejemplo basico
+
+-- Nos conectamos a RMAN
+rman target /
+
+-- Backup base (nivel 0)
+BACKUP INCREMENTAL LEVEL 0 DATABASE;
+
+-- Días después, backup con cambios (nivel 1)
+BACKUP INCREMENTAL LEVEL 1 DATABASE;
+
+--------------------------------------------------------------------------------------------
+2-Ejemplo avanzado con INCREMENTAL LEVEL 1
+
+-- 1. Crear una copia de imagen de los datafiles (nivel 0)
+BACKUP AS COPY INCREMENTAL LEVEL 0 DATABASE;
+
+-- 2. Luego, día a día aplicamos los cambios incrementales a esa copia
+BACKUP INCREMENTAL LEVEL 1 FOR RECOVER OF COPY WITH TAG 'daily_update' DATABASE;
+
+-- 3. Aplicamos el backup incremental a la copia de imagen
+RECOVER COPY OF DATABASE WITH TAG 'daily_update';
+
+Dato a tener encuenta no obligatorío pero si super util
+
+En caso de desastre, hacer switch de forma inmediata
+-- SWITCH DATABASE TO COPY;
+
+
+
+
+
+
+
+
+
+
+
+
