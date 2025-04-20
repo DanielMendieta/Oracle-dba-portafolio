@@ -1,0 +1,8 @@
+-- Iniciar RMAN
+rman target /
+
+-- Paso 1: Restaurar la base de datos desde un backup completo
+RESTORE DATABASE;
+
+-- Paso 2: Recuperar la base de datos con los archivelogs
+RECOVER DATABASE;
