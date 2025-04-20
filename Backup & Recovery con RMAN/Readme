@@ -2,7 +2,7 @@ Esta carpeta contiene ejemplos prácticos de cómo realizar copias de seguridad 
 
 Incluye:
 
-- Cómo hacer un backup completo.
+- Cómo hacer un backup completo y por partes..
 - Cómo recuperar datos después de una falla.
 - Cómo verificar si los backups están bien hechos.
 - Buenas prácticas para cuidar la información.
