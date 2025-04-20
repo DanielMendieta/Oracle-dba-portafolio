@@ -1,0 +1,58 @@
+# Conectarse a RMAN
+CONNECT TARGET /
+
+# Iniciar backup completo
+BACKUP DATABASE;
+
+# Backup de los archivos de control y el SPFILE (parámetros)
+BACKUP CURRENT CONTROLFILE;
+BACKUP SPFILE;
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+#SIMULACION
+
+[oracle@localhost ~]$ rman target /
+
+Recovery Manager: Release 19.0.0.0.0 - Production on Thu Apr 17 18:14:22 2025
+Copyright (c) 1982, 2025, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: ORCL (DBID=123456789)
+
+RMAN> BACKUP DATABASE;
+
+Starting backup at 17-APR-25
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting full datafile backup set
+channel ORA_DISK_1: specifying datafile(s) in backup set
+input datafile file number=00001 name=/u01/app/oracle/oradata/ORCL/system01.dbf
+input datafile file number=00002 name=/u01/app/oracle/oradata/ORCL/sysaux01.dbf
+input datafile file number=00003 name=/u01/app/oracle/oradata/ORCL/undotbs01.dbf
+input datafile file number=00004 name=/u01/app/oracle/oradata/ORCL/users01.dbf
+...
+channel ORA_DISK_1: backup set complete, elapsed time: 00:01:23
+Finished backup at 17-APR-25
+
+RMAN> BACKUP CURRENT CONTROLFILE;
+
+Starting backup at 17-APR-25
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting control file backup set
+channel ORA_DISK_1: specifying control file(s) for backup
+backup of control file complete
+Finished backup at 17-APR-25
+
+RMAN> BACKUP SPFILE;
+
+Starting backup at 17-APR-25
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting SPFILE backup set
+channel ORA_DISK_1: specifying SPFILE in backup set
+backup of SPFILE complete
+Finished backup at 17-APR-25
+
+RMAN> exit
+
+Recovery Manager complete.
+
