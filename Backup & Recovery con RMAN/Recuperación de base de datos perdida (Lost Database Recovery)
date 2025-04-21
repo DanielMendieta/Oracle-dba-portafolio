@@ -1,0 +1,17 @@
+-- Iniciar RMAN conectándose al catálogo o con backups disponibles
+rman target /
+
+-- Paso 1: Restaurar el control file desde el autobackup
+RESTORE CONTROLFILE FROM AUTOBACKUP;
+
+-- Paso 2: Montar la base con el controlfile recuperado
+ALTER DATABASE MOUNT;
+
+-- Paso 3: Restaurar toda la base de datos
+RESTORE DATABASE;
+
+-- Paso 4: Recuperar hasta el último punto posible
+RECOVER DATABASE;
+
+-- Paso 5: Abrir la base con RESETLOGS
+ALTER DATABASE OPEN RESETLOGS;
