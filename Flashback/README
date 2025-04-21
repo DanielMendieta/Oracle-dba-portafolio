@@ -1,0 +1,10 @@
+Esta carpeta contiene ejemplos prácticos del uso de las tecnologías de Flashback en Oracle, dentro del esquema HR (Human Resource).
+Flashback permite recuperar datos o retroceder objetos y bases de datos a un estado anterior sin necesidad de restaurar backups tradicionales.
+
+Incluye ejemplos de:
+-Flashback Table
+-Flashback Query
+-Flashback Drop
+-Flashback Database
+
+Cada técnica es útil en distintos escenarios de recuperación ante errores humanos o pérdida de datos.
