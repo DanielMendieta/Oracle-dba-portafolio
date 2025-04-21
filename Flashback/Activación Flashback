@@ -1,0 +1,10 @@
+1 - ARCHIVELOG debe estar habilitado
+
+2 - Flashback Database (si se va a usar esa opción) debe estar activado
+-- Desde SQL*Plus o RMAN:
+SHUTDOWN IMMEDIATE;
+STARTUP MOUNT;
+ALTER DATABASE FLASHBACK ON;
+ALTER DATABASE OPEN;
+
+SHOW PARAMETER undo_retention; --Se recomienda tener al menos 900 segundos (15 minutos) o más.
