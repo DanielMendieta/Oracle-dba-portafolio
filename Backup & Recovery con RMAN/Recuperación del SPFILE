@@ -1,0 +1,10 @@
+-- Iniciar RMAN con una conexión al sistema operativo (sin SPFILE)
+rman target /
+
+-- Restaurar el SPFILE desde un autobackup
+RESTORE SPFILE FROM AUTOBACKUP;
+
+-- Una vez restaurado, reiniciar la instancia
+STARTUP;
+
+-- Listo, la base ya puede levantar con su configuración original
