@@ -1,0 +1,13 @@
+/*
+Restaurar tablespace hr_data al estado que tenía el 15 de abril de 2025 a las 09:00 AM:
+*/
+
+-- Iniciar RMAN
+rman target /
+
+-- Ejecutar la recuperación
+RECOVER TABLESPACE hr_data
+  UNTIL TIME "TO_DATE('2025-04-15 09:00:00', 'YYYY-MM-DD HH24:MI:SS')")
+  AUXILIARY DESTINATION '/u01/app/oracle/auxdest';
+
+
