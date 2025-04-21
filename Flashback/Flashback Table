@@ -1,0 +1,7 @@
+Alguien borró accidentalmente filas de la tabla HR.EMPLOYEES.
+
+1 - ALTER TABLE HR.EMPLOYEES ENABLE ROW MOVEMENT; --ROW MOVEMENT permite que Oracle modifique el ROWID de los registros, algo necesario para poder hacer flashback.
+
+2 - FLASHBACK TABLE HR.EMPLOYEES 
+TO TIMESTAMP (SYSTIMESTAMP - INTERVAL '10' MINUTE); --Este comando devuelve la tabla a su estado anterior a una hora específica, sin usar RMAN ni restaurar archivos.
+
