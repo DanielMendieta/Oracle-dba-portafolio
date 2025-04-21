@@ -1,0 +1,19 @@
+-- Iniciar RMAN
+rman target /
+
+-- Paso 1: Apagar la base de datos
+SHUTDOWN IMMEDIATE;
+STARTUP MOUNT;
+
+-- Paso 2: Restaurar hasta una fecha específica
+RUN {
+  SET UNTIL TIME "TO_DATE('2025-04-18 10:00:00','YYYY-MM-DD HH24:MI:SS')";
+  RESTORE DATABASE;
+  RECOVER DATABASE;
+}
+
+-- Paso 3: Abrir la base de datos con RESETLOGS
+ALTER DATABASE OPEN RESETLOGS;
+
+--Este ejemplo lleva la base a como estaba el 18 de abril de 2025 a las 10:00 AM.
+-- Es útil si hubo una pérdida o corrupción de datos a partir de cierto momento.
