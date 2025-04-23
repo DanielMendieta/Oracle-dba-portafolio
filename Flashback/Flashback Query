@@ -6,6 +6,7 @@ AS OF TIMESTAMP (SYSTIMESTAMP - INTERVAL '10' MINUTE);
 
 
 Utilidad:
+Primer ejemplo
 Supongamos que alguien modificó el salario del empleado con employee_id = 105. Queremos ver cuánto ganaba antes del cambio.
 
 SELECT salary
@@ -17,3 +18,33 @@ Te muestra el salario de ese empleado tal como estaba hace 15 minutos.
 
 Si sabés cuándo fue el cambio, podés ajustar el intervalo.
 🧠 Consejo: siempre que pruebes esto, asegurate que el UNDO_RETENTION esté configurado con tiempo suficiente, o no te dejará retroceder tanto.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Segundo ejemplo;
+
+Un DELETE borró varios registros de la tabla HR.DEPARTMENTS por error hace unos minutos. Queremos ver cuáles eran esos registros antes del borrado.
+
+SELECT department_id, department_name, manager_id
+FROM HR.DEPARTMENTS
+AS OF TIMESTAMP (SYSTIMESTAMP - INTERVAL '5' MINUTE);
+
+Asi recuperamos la info perdida sin restaurar la base ni afectar nada actual.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
