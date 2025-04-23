@@ -1,0 +1,12 @@
+Recuperar tablas borradas.
+
+--DROP TABLE HR.EMPLOYEES;
+
+FLASHBACK TABLE HR.EMPLOYEES TO BEFORE DROP;
+
+--Query para consultar en la papelera el nombre de la tabla eliminada
+
+SELECT original_name, droptime 
+FROM RECYCLEBIN;
+
+
