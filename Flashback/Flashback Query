@@ -1,0 +1,19 @@
+-Queremos ver cómo estaba la tabla HR.EMPLOYEES hace 10 minutos, sin modificar nada.
+
+SELECT employee_id, first_name, salary
+FROM HR.EMPLOYEES
+AS OF TIMESTAMP (SYSTIMESTAMP - INTERVAL '10' MINUTE);
+
+
+Utilidad:
+Supongamos que alguien modificó el salario del empleado con employee_id = 105. Queremos ver cuánto ganaba antes del cambio.
+
+SELECT salary
+FROM HR.EMPLOYEES
+AS OF TIMESTAMP (SYSTIMESTAMP - INTERVAL '15' MINUTE)
+WHERE employee_id = 105;
+
+Te muestra el salario de ese empleado tal como estaba hace 15 minutos.
+
+Si sabés cuándo fue el cambio, podés ajustar el intervalo.
+🧠 Consejo: siempre que pruebes esto, asegurate que el UNDO_RETENTION esté configurado con tiempo suficiente, o no te dejará retroceder tanto.
