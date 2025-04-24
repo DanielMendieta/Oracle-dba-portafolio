@@ -1,0 +1,32 @@
+/*Si la tabla JOB_HISTORY crece considerablemente con el tiempo, particionarla ayuda a dividir los datos en segmentos más manejables. Por ende
+ayuda a mejorar el rendimiento de las consultas, simplificar el mantenimiento y administración, y optimizar el uso de los recursos del sistema
+*/
+
+CREATE TABLE HR.job_history_partitioned (
+    employee_id     NUMBER,
+    start_date      DATE,
+    end_date        DATE,
+    job_id          VARCHAR2(10),
+    department_id   NUMBER
+)
+PARTITION BY RANGE (start_date) (
+    PARTITION job_1990_1999 VALUES LESS THAN (TO_DATE('2000-01-01','YYYY-MM-DD')),
+    PARTITION job_2000_2009 VALUES LESS THAN (TO_DATE('2010-01-01','YYYY-MM-DD')),
+    PARTITION job_2010_2019 VALUES LESS THAN (TO_DATE('2020-01-01','YYYY-MM-DD')),
+    PARTITION job_2020_max  VALUES LESS THAN (MAXVALUE)
+);
+
+
+--Luego Transferimos los datos desde la tabla original a la nueva tabla particionada.
+
+INSERT INTO HR.job_history_partitioned
+SELECT * FROM HR.job_history;
+
+--Verificar que los datos se han transferido correctamente.
+
+SELECT COUNT(*) FROM HR.job_history;
+SELECT COUNT(*) FROM HR.job_history_partitioned;
+
+
+
+
