@@ -1,0 +1,30 @@
+Tabla DEPARTMENTS debemos particionarla en función de la columna REGION_ID. Las regiones podrían ser, por ejemplo, América, Europa y Asia. 
+Al particionar la tabla según REGION_ID, los datos de cada región se almacenarán en particiones separadas.
+
+
+CREATE TABLE HR.departments_partitioned (
+    department_id NUMBER PRIMARY KEY,
+    department_name VARCHAR2(40) NOT NULL,
+    manager_id NUMBER,
+    location_id NUMBER,
+    region_id NUMBER
+)
+PARTITION BY LIST (region_id) (
+    PARTITION p_americas VALUES (1),
+    PARTITION p_europe VALUES (2),
+    PARTITION p_asia VALUES (3)
+);
+
+/*
+Ventajas del particionamiento por lista:
+Consultas más eficientes: Si una consulta se enfoca solo en una región específica, Oracle solo buscará en la partición correspondiente, lo que acelera la consulta.
+*/
+
+SELECT * FROM HR.departments_partitioned
+WHERE region_id = 2;  -- Solo consulta Europa
+
+Otros Beneficios
+/*
+Organización: Mantiene los datos de las diferentes regiones separados, lo que puede ser útil tanto para la gestión de los datos como para la generación de informes específicos.
+Flexibilidad: Permite agregar nuevas particiones si en el futuro se añaden nuevas regiones o categorías de datos.
+*/
