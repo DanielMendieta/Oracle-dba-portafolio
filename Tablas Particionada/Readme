@@ -1,0 +1,9 @@
+En esta carpeta se encuentran ejemplos prácticos de cómo crear y administrar tablas particionadas en Oracle, utilizando el esquema HR.HUMAN_RESOURCE.
+Las tablas particionadas permiten dividir grandes volúmenes de datos en segmentos más manejables, mejorando el rendimiento de las consultas 
+y facilitando tareas como el mantenimiento y backup.
+
+Se incluyen ejemplos con:
+
+-Particionamiento por rango (RANGE)
+-Particionamiento por lista (LIST)
+-Particionamiento por hash (HASH)
