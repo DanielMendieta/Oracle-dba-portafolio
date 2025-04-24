@@ -1,0 +1,37 @@
+/*La tabla EMPLOYEES en varias particiones, y decides usar la columna EMPLOYEE_ID para determinar cómo se distribuyen los registros. 
+La idea es distribuir los empleados en un número de particiones, de modo que los registros se distribuyan equitativamente, sin un patrón predefinido de valores.
+*/
+
+CREATE TABLE HR.employees_partitioned (
+    employee_id NUMBER PRIMARY KEY,
+    first_name VARCHAR2(20),
+    last_name VARCHAR2(25),
+    email VARCHAR2(25),
+    hire_date DATE,
+    job_id VARCHAR2(10),
+    salary NUMBER(8,2),
+    department_id NUMBER
+)
+PARTITION BY HASH (employee_id) 
+PARTITIONS 4;  -- Se crean 4 particiones
+
+/*Transferir datos en bloque: Si la tabla tiene una gran cantidad de datos, puedes hacerlo en bloques para evitar bloqueos o problemas de rendimiento. 
+Esto se puede hacer utilizando un WHERE para filtrar los datos por un rango, como el siguiente ejemplo: */
+
+INSERT INTO HR.employees_partitioned (employee_id, first_name, last_name, email, hire_date, job_id, salary, department_id)
+SELECT employee_id, first_name, last_name, email, hire_date, job_id, salary, department_id
+FROM HR.job_history
+WHERE employee_id BETWEEN 1 AND 1000;
+
+--Verificación de la transferencia:
+SELECT COUNT(*) FROM HR.employees_partitioned;
+SELECT COUNT(*) FROM HR.job_history;
+
+--VENTAJAS:
+Distribución automática en particiones: No tienes que preocuparte de qué partición seleccionar al insertar los datos. 
+Oracle se encargará de distribuir los registros automáticamente entre las particiones, según el valor calculado con la función hash.
+Esto permite distribuir de manera equilibrada los datos de los empleados en las particiones, mejorando el rendimiento y facilitando la administración de los datos.
+
+
+
+
