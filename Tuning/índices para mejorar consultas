@@ -1,0 +1,21 @@
+--Situacion 
+--Tenemos una tabla EMPLOYEES muy grande y queremos consultar rápidamente los empleados que tienen un salario mayor a 10.000.
+
+--Consulta lenta (sin índice específico):
+
+SELECT employee_id, first_name, salary
+FROM employees
+WHERE salary > 10000;
+
+/*
+Como no hay un índice sobre salary, Oracle revisa toda la tabla (Full Table Scan). Si EMPLOYEES tiene 1 millón de registros, esta consulta tarda bastante.
+Crear un índice para mejorar la consulta, Oracle puede usar el índice para encontrar los empleados con salary > 10000 de forma mucho más rápida, sin escanear toda la tabla.
+*/
+
+CREATE INDEX idx_employees_salary ON employees(salary);
+
+
+
+
+
+
