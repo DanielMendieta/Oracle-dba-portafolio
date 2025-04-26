@@ -1,0 +1,76 @@
+1
+
+--Consulta mal escrita (difícil de leer y mantener):
+
+SELECT e.first_name, e.last_name,d.department_name 
+FROM employees e, departments d 
+WHERE e.department_id=d.department_id 
+AND e.salary>5000 
+ORDER BY e.last_name;
+
+--Consulta bien escrita (clara y ordenada):
+SELECT 
+    e.first_name,
+    e.last_name,
+    d.department_name
+FROM 
+    employees e
+INNER JOIN 
+    departments d ON e.department_id = d.department_id
+WHERE 
+    e.salary > 5000
+ORDER BY 
+    e.last_name;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2
+--Consulta mal escrita:
+SELECT job_title, min_salary, max_salary FROM jobs WHERE min_salary<5000 AND max_salary>10000 ORDER BY job_title;
+
+--Consulta bien escrita:
+SELECT 
+    job_title,
+    min_salary,
+    max_salary
+FROM 
+    jobs
+WHERE 
+    min_salary < 5000 
+    AND max_salary > 10000
+ORDER BY 
+    job_title;
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3 --Consulta mal escrita
+SELECT employee_id, first_name, last_name, salary FROM employees WHERE salary>5000 AND department_id IN (10,20,30) AND job_id='IT_PROG' ORDER BY last_name, first_name;
+
+--Ordenada y profesional
+
+SELECT 
+    employee_id,
+    first_name,
+    last_name,
+    salary
+FROM 
+    employees
+WHERE 
+    salary > 5000
+    AND department_id IN (10, 20, 30)
+    AND job_id = 'IT_PROG'
+ORDER BY 
+    last_name,
+    first_name;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
