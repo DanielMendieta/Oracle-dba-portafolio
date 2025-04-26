@@ -1,0 +1,28 @@
+--Oracle toma decisiones de cómo ejecutar una consulta basándose en estadísticas de las tablas (cuántas filas tiene, cuál es el valor promedio de las columnas, etc.).
+
+INSERT INTO employees (employee_id, first_name, last_name, email, hire_date, job_id, salary, department_id)
+SELECT 300 + LEVEL, 'First'||LEVEL, 'Last'||LEVEL, 'email'||LEVEL||'@test.com', SYSDATE, 'IT_PROG', 5000, 60
+FROM dual
+CONNECT BY LEVEL <= 10000;
+
+COMMIT;
+
+/* PROBLEMA
+La tabla EMPLOYEES del esquema HR, hace poco se insertaron miles de registros nuevos, pero no se actualizaron las estadísticas,
+entonces Oracle sigue creyendo que la tabla es chica y elige un plan de ejecución malo.
+*/
+
+--Actualizar estadísticas
+
+BEGIN
+  DBMS_STATS.GATHER_TABLE_STATS('HR', 'EMPLOYEES');
+END;
+/
+
+/*CONCLUSION:
+Antes de actualizar estadísticas: Consulta lenta porque Oracle no sabe que la tabla creció. 
+Después de actualizar estadísticas: Consulta más rápida porque Oracle elige mejor el plan.
+*/
+
+
+
