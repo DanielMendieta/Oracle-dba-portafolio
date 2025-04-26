@@ -6,6 +6,7 @@ Incluye:
 - Cómo crear un índice funcional para acelerar la búsqueda.
 - Cómo comparar el rendimiento antes y después.
 - Buenas prácticas para escribir consultas más eficientes.
+- Actualizacion de estadisticas. 
 
 El ejemplo está basado en un entorno de práctica con el esquema HR (Human Resource).
 
