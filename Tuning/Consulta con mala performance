@@ -1,0 +1,41 @@
+Queremos obtener todos los empleados que ganan más que su gerente. La consulta inicial es funcional, pero ineficiente:
+
+SELECT e.first_name, e.last_name, e.salary, m.first_name AS mgr_first, m.last_name AS mgr_last, m.salary AS mgr_salary
+FROM employees e
+JOIN employees m ON e.manager_id = m.employee_id
+WHERE e.salary > m.salary;
+
+/* PROBLEMAS
+-Si hay miles de empleados, el join crea un alto costo.
+-El optimizador puede no usar bien los índices si manager_id y employee_id no están correctamente indexados.
+*/
+
+--SOLUCIONES: Agregamos índices que el optimizador pueda usar
+
+CREATE INDEX idx_emp_manager_id ON employees(manager_id);
+CREATE INDEX idx_emp_employee_id ON employees(employee_id);
+
+-- SEGUNDA SOLUCION: Usamos una subconsulta con EXISTS para evitar joins innecesarios
+
+SELECT e.first_name, e.last_name, e.salary
+FROM employees e
+WHERE EXISTS (
+    SELECT 1
+    FROM employees m
+    WHERE m.employee_id = e.manager_id
+      AND e.salary > m.salary
+);
+
+--COMPROBACION: 
+
+EXPLAIN PLAN FOR
+SELECT e.employee_id, e.first_name, e.last_name
+FROM employees e
+WHERE EXISTS (
+  SELECT 1
+  FROM departments d
+  WHERE d.department_id = e.department_id
+);
+
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
