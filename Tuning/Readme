@@ -4,7 +4,6 @@ Incluye:
 
 - Un caso real de una consulta que no usaba el índice correctamente.
 - Cómo crear un índice funcional para acelerar la búsqueda.
-- Cómo comparar el rendimiento antes y después.
 - Buenas prácticas para escribir consultas más eficientes.
 - Actualizacion de estadisticas. 
 
