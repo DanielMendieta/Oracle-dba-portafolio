@@ -1,0 +1,9 @@
+1-Poner la base de datos en modo MOUNT;
+SHUTDOWN IMMEDIATE;
+STARTUP MOUNT;
+
+2-Activar ARCHIVELOG:A continuación, se ejecuta el siguiente comando para activar el modo de archivado de los redo logs:ALTER DATABASE ARCHIVELOG;
+
+3-Verificar el estado de ARCHIVELOG:ARCHIVE LOG LIST;
+
+4-Abrir la base de datos:ALTER DATABASE OPEN;
