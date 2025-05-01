@@ -1,0 +1,28 @@
+--select * from dba_data_files;
+--select * from dba_tablespaces;
+--select * DBA_FREE_SPACE;
+
+SELECT
+    df.tablespace_name,
+    df.file_name,
+    df.bytes / 1024 / 1024 AS total_size_mb,
+    fs.free_bytes / 1024 / 1024 AS free_space_mb
+FROM
+    dba_data_files df
+JOIN
+    dba_free_space fs
+    ON df.file_id = fs.file_id;
+
+Agrupar por tablespace para ver un resumen total
+
+SELECT
+    df.tablespace_name,
+    ROUND(SUM(df.bytes) / 1024 / 1024, 2) AS total_size_mb,
+    ROUND(SUM(fs.bytes) / 1024 / 1024, 2) AS free_space_mb,
+    ROUND((SUM(fs.bytes) / SUM(df.bytes)) * 100, 2) AS pct_free
+FROM
+    dba_data_files df
+JOIN
+    dba_free_space fs ON df.file_id = fs.file_id
+GROUP BY
+    df.tablespace_name;
