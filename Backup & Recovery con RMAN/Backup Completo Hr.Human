@@ -1,0 +1,3 @@
+BACKUP FULL DATABASE FORMAT 'C:\OracleBackup\full_%U.bkp';
+BACKUP CURRENT CONTROLFILE FORMAT 'C:\OracleBackup\controlfile_%U.ctl';
+BACKUP SPFILE FORMAT 'C:\OracleBackup\spfile_%U.spf';
