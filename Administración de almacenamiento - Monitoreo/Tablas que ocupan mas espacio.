@@ -1,0 +1,12 @@
+SELECT
+    owner,
+    segment_name AS tabla,
+    segment_type,
+    tablespace_name,
+    bytes / 1024 / 1024 AS tamaño_mb
+FROM
+    dba_segments
+WHERE
+    segment_type = 'TABLE'
+ORDER BY
+    tamaño_mb DESC;
