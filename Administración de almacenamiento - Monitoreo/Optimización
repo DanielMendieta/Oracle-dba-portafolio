@@ -1,0 +1,28 @@
+1-Revisar el Plan de Ejecución (Execution Plan):
+
+EXPLAIN PLAN FOR <tu consulta>;
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+Operaciones como Full Table Scans en lugar de usar índices, esa puede ser una señal de que algo no está bien.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2-Revisar índices:Asegúrate de que las tablas involucradas tengan los índices adecuados. 
+Las consultas lentas pueden deberse a que no se utilizan índices en columnas clave (como las de las cláusulas WHERE o JOIN).
+Consulta los índices de las tablas:SELECT * FROM DBA_INDEXES WHERE TABLE_NAME = '<nombre_de_tabla>';
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3-Verificar estadísticas:Oracle usa estadísticas para determinar el mejor plan de ejecución. Si las estadísticas están desactualizadas, 
+Oracle podría estar tomando decisiones incorrectas al ejecutar la consulta.Para verificar y actualizar las estadísticas:
+BEGIN
+   DBMS_STATS.GATHER_TABLE_STATS('<esquema>', '<tabla>');
+END;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4-Revisar la carga del sistema:La lentitud no siempre se debe a la consulta en sí, sino a una alta carga en la base de datos (pocos recursos disponibles como CPU, I/O, etc.).
+Puedes usar herramientas como AWR (Automatic Workload Repository) o ASH (Active Session History) 
+para analizar el rendimiento del sistema.SELECT * FROM v$session WHERE status = 'ACTIVE';
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5-Verificar si hay bloqueos:Los bloqueos entre sesiones pueden hacer que las consultas se ralenticen, ya que esperan que se liberen los recursos. 
+Para verificar bloqueos:SELECT * FROM v$lock;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+6-Considerar la posibilidad de crear vistas materializadas:Si la consulta involucra cálculos complejos o grandes uniones entre tablas, 
+y se ejecuta frecuentemente, podrías considerar crear una vista materializada. Esto almacenará los resultados previamente calculados y hará que la consulta sea mucho más rápida.
+
+CREATE MATERIALIZED VIEW <nombre_vista> AS <tu consulta>;
