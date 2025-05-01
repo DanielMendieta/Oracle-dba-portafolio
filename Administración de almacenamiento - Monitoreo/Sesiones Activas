@@ -10,13 +10,6 @@ FROM
     v$session
 WHERE
     status = 'ACTIVE';
--------------------------------------------------------------------------
-
---Contar las secciones Activas:
-SELECT COUNT(*) AS active_sessions
-FROM v$session
-WHERE status = 'ACTIVE';
-
 /*
 Sid: El ID de la sesión.
 Serial#: El número de serie asociado a la sesión.
@@ -26,3 +19,43 @@ Program: El nombre del programa que está utilizando la sesión.
 Module: El módulo de la aplicación.
 Action: La acción que está realizando la sesión.
 */
+--------------------------------------------------------------------------------------------
+--Contar las secciones Activas:
+
+SELECT COUNT(*) AS active_sessions
+FROM v$session
+WHERE status = 'ACTIVE';
+--------------------------------------------------------------------------------------------
+Detectar qué sesiones están consumiendo más CPU en ese momento.
+
+SELECT
+    s.sid,
+    s.serial#,
+    s.username,
+    sn.name AS estadistica,
+    ss.value AS uso_cpu
+FROM
+    v$sesstat ss
+JOIN
+    v$statname sn ON ss.statistic# = sn.statistic#
+JOIN
+    v$session s ON ss.sid = s.sid
+WHERE
+    sn.name = 'CPU used by this session'
+    AND s.username IS NOT NULL
+ORDER BY
+    ss.value DESC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
