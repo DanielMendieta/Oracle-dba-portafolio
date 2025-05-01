@@ -1,0 +1,28 @@
+SELECT
+    sid,
+    serial#,
+    username,
+    status,
+    program,
+    module,
+    action
+FROM
+    v$session
+WHERE
+    status = 'ACTIVE';
+-------------------------------------------------------------------------
+
+--Contar las secciones Activas:
+SELECT COUNT(*) AS active_sessions
+FROM v$session
+WHERE status = 'ACTIVE';
+
+/*
+Sid: El ID de la sesión.
+Serial#: El número de serie asociado a la sesión.
+Username: El nombre de usuario de la sesión.
+Status: El estado de la sesión (en este caso, solo se filtran las activas).
+Program: El nombre del programa que está utilizando la sesión.
+Module: El módulo de la aplicación.
+Action: La acción que está realizando la sesión.
+*/
