@@ -1,0 +1,10 @@
+Esta carpeta contiene una colección de consultas útiles para el monitoreo y administración de bases de datos Oracle.
+
+Incluye ejemplos sobre:
+-Monitoreo del espacio en los tablespaces.
+-Uso de vistas del diccionario (DBA_, V$, ALL_, etc.).
+-Control de sesiones activas y bloqueos.
+-Verificación del crecimiento de archivos.
+-Estado y uso de recursos del sistema.
+
+Estas consultas están orientadas a tareas típicas que realiza un DBA trainee o junior para tener control y visibilidad sobre la base de datos.
