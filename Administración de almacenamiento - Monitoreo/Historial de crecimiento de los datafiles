@@ -1,0 +1,17 @@
+SELECT
+    df.snap_id,
+    s.begin_interval_time,
+    df.file#,
+    df.name AS file_name,
+    df.tablespace_name,
+    df.size * ts.block_size / (1024*1024) AS size_mb
+FROM
+    dba_hist_datafile df
+JOIN
+    dba_hist_snapshot s ON df.snap_id = s.snap_id
+JOIN
+    dba_tablespaces ts ON df.tablespace_id = ts.tablespace_id
+WHERE
+    df.tablespace_name = 'USERS'
+ORDER BY
+    df.name, s.begin_interval_time;
