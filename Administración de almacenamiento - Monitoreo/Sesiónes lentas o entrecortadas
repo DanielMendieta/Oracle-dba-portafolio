@@ -1,0 +1,30 @@
+V$SESSION_LONGOPS Muestra información sobre operaciones largas que están en ejecución en sesiones activas. 
+Por ejemplo, una consulta pesada, una carga masiva de datos o un análisis complejo. Podémos ver cuánto lleva ejecutándose y cuánto le falta.
+
+SELECT
+    sl.sid,
+    sl.serial#,
+    s.username,
+    sl.opname AS operacion,
+    sl.target,
+    sl.sofar,
+    sl.totalwork,
+    ROUND(sl.sofar / sl.totalwork * 100, 2) AS porcentaje_avance,
+    sl.start_time,
+    sl.elapsed_seconds,
+    sl.time_remaining
+FROM
+    v$session_longops sl
+JOIN
+    v$session s ON sl.sid = s.sid AND sl.serial# = s.serial#
+WHERE
+    sl.totalwork > 0
+    AND sl.sofar < sl.totalwork;
+
+SID / SERIAL# Identificadores de la sesión.
+USERNAME Qué usuario está ejecutando.
+OPERACION Qué está haciendo (ej: table scan, backup, etc).
+SOFAR / TOTALWORK Avance real vs total.
+PORCENTAJE_AVANCE Porcentaje completado.
+ELAPSED_SECONDS Cuánto tiempo lleva ejecutándose.
+TIME_REMAINING Estimación de cuánto falta.
