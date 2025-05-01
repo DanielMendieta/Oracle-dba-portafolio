@@ -1,0 +1,15 @@
+--LINUX
+CREATE TABLESPACE ts_datos
+DATAFILE '/u01/app/oracle/oradata/DB/ts_datos01.dbf' SIZE 100M;
+
+
+--WINDOWS
+CREATE TABLESPACE ts_datos
+DATAFILE 'C:\oracle\oradata\DB\ts_datos01.dbf' SIZE 100M;
+
+--RECOMENDADO PARA FUTURA EXTENSIÓN
+
+CREATE TABLESPACE ts_datos
+DATAFILE '/u01/app/oracle/oradata/DB/ts_datos01.dbf' SIZE 100M
+AUTOEXTEND ON NEXT 10M MAXSIZE 1G
+EXTENT MANAGEMENT LOCAL;
