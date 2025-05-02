@@ -8,3 +8,6 @@ ALTER DATABASE FLASHBACK ON;
 ALTER DATABASE OPEN;
 
 SHOW PARAMETER undo_retention; --Se recomienda tener al menos 900 segundos (15 minutos) o más.
+
+SHOW RECYCLEBIN;
+(Este comando mostrará una lista de los objetos que están actualmente en tu Recycle Bin.)
