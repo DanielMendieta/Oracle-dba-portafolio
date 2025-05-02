@@ -1,3 +1,25 @@
+/* Escenario: Se hizo un Delete sin Where en un tabla, lo que provoco que se perdiera registros sumamente importantes.
+*/
+--EJEMPLO
+
+DELETE FROM EMPLOYEES; -- SE BORRO TODO!
+
+-- AQUI PODEMOS VER COMO SE VEIA LA TABLA ANTES DEL DELETE:
+SELECT * 
+FROM EMPLOYEES
+AS OF TIMESTAMP SYSDATE - INTERVAL '1' MINUTE;
+
+--¿Como recuperamos la info perdida?
+
+INSERT INTO EMPLOYEES 
+SELECT *
+FROM EMPLOYEES
+AS OF TIMESTAMP SYSDATE - INTERVAL '3' MINUTE;
+
+COMMIT;
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
 -Queremos ver cómo estaba la tabla HR.EMPLOYEES hace 10 minutos, sin modificar nada.
 
 SELECT employee_id, first_name, salary
@@ -19,9 +41,7 @@ Te muestra el salario de ese empleado tal como estaba hace 15 minutos.
 Si sabés cuándo fue el cambio, podés ajustar el intervalo.
 🧠 Consejo: siempre que pruebes esto, asegurate que el UNDO_RETENTION esté configurado con tiempo suficiente, o no te dejará retroceder tanto.
 
----------------------------------------------------------------------------------------------------------------------------
-
-Segundo ejemplo;
+-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Un DELETE borró varios registros de la tabla HR.DEPARTMENTS por error hace unos minutos. Queremos ver cuáles eran esos registros antes del borrado.
 
@@ -29,7 +49,7 @@ SELECT department_id, department_name, manager_id
 FROM HR.DEPARTMENTS
 AS OF TIMESTAMP (SYSTIMESTAMP - INTERVAL '5' MINUTE);
 
-Asi recuperamos la info perdida sin restaurar la base ni afectar nada actual.
+Asi visualizamos la info perdida sin restaurar la base ni afectar nada actual.
 
 
 
