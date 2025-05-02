@@ -5,3 +5,7 @@ Alguien borró accidentalmente filas de la tabla HR.EMPLOYEES.
 2 - FLASHBACK TABLE HR.EMPLOYEES 
 TO TIMESTAMP (SYSTIMESTAMP - INTERVAL '10' MINUTE); --Este comando devuelve la tabla a su estado anterior a una hora específica, sin usar RMAN ni restaurar archivos.
 
+
+--OTRA ALTERNATIVA
+
+--FLASHBACK TABLE "BIN$0G6bL3cWQgyizXd/6wRl4w==$0" TO BEFORE DROP;
