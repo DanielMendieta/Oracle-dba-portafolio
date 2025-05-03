@@ -1,0 +1,17 @@
+SELECT name, open_mode, con_id FROM v$pdbs;
+
+DESDE SQL PLUS
+CREATE PLUGGABLE DATABASE banco_pdb
+  ADMIN USER admin_banco IDENTIFIED BY admin123
+  FILE_NAME_CONVERT = ('pdbseed', 'banco_pdb');
+
+
+ALTER PLUGGABLE DATABASE banco_pdb OPEN;
+
+ALTER PLUGGABLE DATABASE banco_pdb SAVE STATE;
+
+
+/*
+Creamos otra base de datos completa (banco_pdb), dentro del contenedor raíz (CDB).
+En ella podémos tener usuarios, tablas, etc., totalmente separados de los de XEPDB1.
+*/
