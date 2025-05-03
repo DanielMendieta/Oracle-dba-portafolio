@@ -1,5 +1,4 @@
 SELECT
-    owner,
     segment_name AS tabla,
     segment_type,
     tablespace_name,
