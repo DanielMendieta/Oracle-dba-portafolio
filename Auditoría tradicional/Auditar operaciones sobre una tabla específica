@@ -1,0 +1,35 @@
+ --¿Dónde se guardaran los registros?
+
+SELECT * FROM user_audit_trail; --VISTA GENERAL
+
+SELECT * 
+FROM user_audit_trail
+WHERE OBJ_NAME = 'EMPLOYEES'; --VISTA ESPECIFICA
+-----------------------------------------------------------------------------------------------------------
+EJERCICIO 1
+
+--Ejecutar acciones que serán auditadas:
+
+--PRIMER PASO Habilitar la auditoría sobre la tabla
+
+AUDIT SELECT, INSERT, UPDATE, DELETE
+ON hr.employees
+BY ACCESS;
+
+-- Conectado como HR:
+SELECT first_name FROM hr.employees WHERE ROWNUM = 1;
+
+UPDATE hr.employees SET salary = salary + 10 WHERE employee_id = 100;
+
+INSERT INTO hr.employees (
+    employee_id, first_name, last_name, email, hire_date, job_id, salary
+) VALUES (
+    300, 'Juan', 'Gómez', 'JGOMEZ', SYSDATE, 'IT_PROG', 4000
+);
+
+DELETE FROM hr.employees WHERE employee_id = 300;
+
+
+
+
+
