@@ -1,10 +1,16 @@
- --¿Dónde se guardaran los registros?
+ --¿Como ver los registros?
 
 SELECT * FROM user_audit_trail; --VISTA GENERAL
 
 SELECT * 
 FROM user_audit_trail
 WHERE OBJ_NAME = 'EMPLOYEES'; --VISTA ESPECIFICA
+
+
+SELECT username, action_name, obj_name, timestamp  --VISTA MAS DETALLADA
+FROM user_audit_trail 
+ORDER BY timestamp DESC;
+
 -----------------------------------------------------------------------------------------------------------
 EJERCICIO 1
 
