@@ -1,0 +1,11 @@
+Esta carpeta contiene ejemplos prácticos sobre cómo implementar la auditoría tradicional en una base de datos Oracle.
+
+Incluye:
+
+-Cómo verificar si la auditoría está habilitada.
+-Cómo activar la auditoría tradicional usando el parámetro AUDIT_TRAIL.
+-Cómo auditar operaciones como SELECT, INSERT, UPDATE, DELETE.
+-Dónde se almacenan los registros de auditoría (SYS.AUD$).
+-Cómo consultar qué acciones se auditaron y quién las ejecutó.
+
+Los ejemplos están basados en un entorno de práctica con el esquema HR (Human Resource).
