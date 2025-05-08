@@ -1,0 +1,21 @@
+SELECT name, value
+FROM v$parameter
+WHERE name = 'audit_trail';
+
+/*
+NONE	La auditoría está deshabilitada.
+DB	Auditoría tradicional, los registros se guardan en la tabla SYS.AUD$.
+DB,EXTENDED	Igual que DB, pero también incluye los valores de los parámetros SQL.
+OS	Auditoría a nivel de sistema operativo (archivos en el sistema).
+XML	Registros se guardan como archivos XML.
+XML,EXTENDED	Igual que XML, pero con más detalles del SQL ejecutado.
+*/
+
+--Si esta desactivado, se activa asi:
+
+ALTER SYSTEM SET audit_trail = 'DB' SCOPE = SPFILE;
+
+--Luego reiniciar la DB
+
+SHUTDOWN IMMEDIATE;
+STARTUP;
