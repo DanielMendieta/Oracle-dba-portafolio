@@ -1,7 +1,0 @@
-Esta carpeta contiene ejemplos prácticos de cómo configurar y usar la Auditoría Unificada en una base de datos Oracle.
-Incluye:
--Cómo habilitar la auditoría unificada (si aún no está activada).
--Cómo auditar acciones específicas como inicio de sesión, DDL o acceso a objetos.
--Cómo consultar los registros de auditoría desde UNIFIED_AUDIT_TRAIL.
--Buenas prácticas para aprovechar esta funcionalidad sin afectar el rendimiento.
-Los ejemplos están basados en un entorno de práctica con el esquema HR (Human Resource)
